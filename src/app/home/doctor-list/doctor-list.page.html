@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">{{hospitalName}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button color="light" menuId="rightMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()" showCancelButton="focus"
+    cancelButtonText="Custom Cancel" animated=true placeholder="Doctor name"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let doctor of doctorDetails">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size-sm="2" size-md="2" size-xl="2" size-lg="2">
+            <img src={{doctor.image}} width="500px" height="150px">
+          </ion-col>
+          <ion-col size-sm="5" size-md="5" size-xl="5" size-lg="5">
+            <ion-label color="success">Name</ion-label> &nbsp;<ion-text>: {{doctor.name}}</ion-text><br><br>
+            <ion-label color="success">Email</ion-label> &nbsp;<ion-text>: {{doctor.email}}</ion-text><br><br>
+            <ion-label color="success">Phone number</ion-label> &nbsp;<ion-text>: {{doctor.phoneNumber}}</ion-text>
+            <br><br>
+            <ion-label color="success">Languages spoken</ion-label> &nbsp;<ion-text>: {{doctor.languagesSpoken}}
+            </ion-text><br><br>
+            <ion-label color="success">Facilities</ion-label> &nbsp;<ion-text>: {{doctor.facilities}}
+            </ion-text>
+          </ion-col>
+          <ion-col size-sm="5" size-md="5" size-xl="5" size-lg="5">
+            <ion-label color="success">Timing</ion-label> &nbsp;<ion-text>: {{doctor.timing}}</ion-text><br><br>
+            <ion-label color="success">Specialize</ion-label> &nbsp;<ion-text>: {{doctor.specialize}}</ion-text><br><br>
+            <ion-label color="success">Fees</ion-label> &nbsp;<ion-text>: {{doctor.fees}}</ion-text><br><br>
+            <ion-label color="success">Available Appointment Slots</ion-label> &nbsp;<ion-text>:
+              {{doctor.appointmentSlots}}</ion-text><br><br>
+            <ion-label color="success">Experience</ion-label> &nbsp;<ion-text>:
+              {{doctor.experience}}</ion-text><br><br>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

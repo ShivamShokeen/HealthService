@@ -11,6 +11,22 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'signin/:type',
+    loadChildren: () => import('./signin/signin.module').then( m => m.SigninPageModule)
+  },
+  {
+    path: 'userprofile',
+    loadChildren: () => import('./userprofile/userprofile.module').then( m => m.UserprofilePageModule)
+  },
+  {
+    path: 'doctor-list/:id/:name',
+    loadChildren: () => import('./home/doctor-list/doctor-list.module').then( m => m.DoctorListPageModule)
+  },
+  {
+    path: 'booked-appointment',
+    loadChildren: () => import('./booked-appointment/booked-appointment.module').then( m => m.BookedAppointmentPageModule)
+  },
 ];
 
 @NgModule({

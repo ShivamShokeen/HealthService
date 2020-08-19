@@ -1,3 +1,35 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="end" type="push" contentId="main" menuId="rightMenu">
+    <ion-header>
+      <ion-toolbar color="success" class="ion-text-center">
+        <ion-text>
+          Right menu
+        </ion-text>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-menu-toggle>
+        <ion-list [routerLink]="['/home']" style="cursor: pointer;">
+          <ion-item>
+            <ion-icon color="success" name="home-outline"></ion-icon> &nbsp;&nbsp;
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list [routerLink]="['/userprofile']" style="cursor: pointer;">
+          <ion-item>
+            <ion-icon color="success" name="person-outline"></ion-icon> &nbsp;&nbsp;
+            <ion-label>User profile</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ion-list style="cursor: pointer;">
+          <ion-item>
+            <ion-icon color="success" name="person-remove-outline"></ion-icon>&nbsp;&nbsp;
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
