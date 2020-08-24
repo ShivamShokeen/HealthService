@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { SigninDetailsService } from './signin-details.service';
+import * as firebase from 'firebase';
+import { HttpClient } from '@angular/common/http';
+import { UserCredentialsService } from '../services/user-credentials.service';
 
 @Component({
   selector: 'app-signin',
@@ -11,7 +13,8 @@ import { SigninDetailsService } from './signin-details.service';
 })
 export class SigninPage implements OnInit {
 
-  userDetails =  {
+  userDetails = {
+    uid: "",
     username: "",
     country: "",
     city: "",
@@ -20,58 +23,112 @@ export class SigninPage implements OnInit {
     phone: "",
     emailid: "",
     password: "",
-    address: ""
+    address: "",
+    type: "enduser"
   }
 
-  doctorDetails = {
-    doctorName: "",
+  hospitalDetails = {
+    uid: "",
+    name: "",
+    image: "",
     country: "",
     city: "",
-    district: "",
+    specialize: "",
+    insuranceSupport: "",
     zipcode: "",
     registrationNumber: "",
-    degree: "",
-    experience: "",
-    services: "",
-    offer: "",
-    fee: "",
-    workingDay: "",
-    workingShift: "",
     phone: "",
     emailid: "",
     password: "",
-    address: ""
+    address: "",
+    type: "hospital"
   }
 
   type;
   clearErrorMessage = true;
-  constructor(private router: Router, public route: ActivatedRoute, public toastController: ToastController, private signinService: SigninDetailsService) { }
+  constructor(private router: Router, public route: ActivatedRoute, public toastController: ToastController, private http: HttpClient, public userCredentials: UserCredentialsService) { }
 
   ngOnInit() {
     this.type = this.route.snapshot.params['type'];
   }
 
   signin(email, password) {
-    if (this.clearErrorMessage == true && email != "" || email != undefined && password != "" || password != undefined) {
-      this.signinService.signinVerification(email.value, password.value);
+    if (this.clearErrorMessage == true && email.value != "" || email.value != undefined && password.value != "" || password.value != undefined) {
+      this.waitMessage();
+      firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+        .then(
+          (user) => {
+            let userLogginDetails = firebase.auth().currentUser;
+            this.userCredentials.UID = userLogginDetails.uid;
+            this.userCredentials.userName = userLogginDetails.displayName;
+            this.userCredentials.getLogginUserDetails();
+            this.router.navigate(['/home']);
+          })
+        .catch(error => {
+          console.log(error);
+          console.log(error.message);
+          this.signupErrorMessage(error.message);
+        })
     }
   }
 
-  signup(Formvalue) {
-    if (this.clearErrorMessage == true && Formvalue.valid) {
-      console.log(Formvalue.value);
-      this.signinService.userDetails.push(this.userDetails);
+  userSignup(form) {
+    if (this.clearErrorMessage == true && form.valid) {
+      console.log(form.value);
       this.type = 'signin';
+      firebase.auth().createUserWithEmailAndPassword(form.value.email, form.value.pass)
+        .then(
+          (user) => {
+            let userLogginDetails = firebase.auth().currentUser;
+            if (user) {
+              userLogginDetails.updateProfile({
+                displayName: this.userDetails.username
+              });
+            }
+            console.log(userLogginDetails.uid);
+            this.userDetails.uid = userLogginDetails.uid;
+            this.http.post('https://healthservice-97887.firebaseio.com/accounts.json', this.userDetails).subscribe(responseData => {
+              console.log("User signup successfully");
+            });
+          }
+        )
+        .catch(error => {
+          console.log(error);
+          this.signupErrorMessage(error.message);
+        })
+      this.signupSuccessMessage();
+      this.router.navigate(['/signin/signin']);
     }
     else {
       this.emptyMessage();
     }
   }
-  doctorSignup(doctorForm) {
+  hospitalSignup(doctorForm) {
     if (this.clearErrorMessage == true && doctorForm.valid) {
       console.log(doctorForm.value);
-      this.signinService.doctorDetails.push(this.doctorDetails);
       this.type = 'signin';
+      firebase.auth().createUserWithEmailAndPassword(doctorForm.value.email, doctorForm.value.pass)
+        .then(
+          (user) => {
+            let userLogginDetails = firebase.auth().currentUser;
+            if (user) {
+              userLogginDetails.updateProfile({
+                displayName: this.hospitalDetails.name
+              });
+            }
+            console.log(userLogginDetails.uid);
+            this.hospitalDetails.uid = userLogginDetails.uid;
+            this.http.post('https://healthservice-97887.firebaseio.com/accounts.json', this.hospitalDetails).subscribe(responseData => {
+              console.log("Doctor signup successfully");
+            });
+          }
+        )
+        .catch(error => {
+          console.log(error);
+          this.signupErrorMessage(error.message);
+        })
+      this.signupSuccessMessage();
+      this.router.navigate(['/signin/signin']);
     }
     else {
       this.emptyMessage();
@@ -83,10 +140,39 @@ export class SigninPage implements OnInit {
     console.log("reseted");
   }
 
+  async signupErrorMessage(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position: "middle",
+      color: "danger"
+    });
+    toast.present();
+  }
+
+  async signupSuccessMessage() {
+    const toast = await this.toastController.create({
+      message: 'Transfering to Signin/Login :)',
+      duration: 3000,
+      position: 'bottom',
+    });
+    toast.present();
+  }
+
   async emptyMessage() {
     const toast = await this.toastController.create({
       message: 'Field are empty.',
-      duration: 5000
+      duration: 5000,
+      color: "danger"
+    });
+    toast.present();
+  }
+
+  async waitMessage() {
+    const toast = await this.toastController.create({
+      message: 'Please wait for few seconds :) .',
+      duration: 2000,
+      position: "bottom"
     });
     toast.present();
   }

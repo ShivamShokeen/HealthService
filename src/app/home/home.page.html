@@ -3,11 +3,19 @@
     <ion-title>
       <ion-text>Health service</ion-text>
     </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" menuId="leftMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="!userCredentials.UID" slot="end">
       <ion-button [routerLink]="['/signin/signin']">
-        <ion-icon name="person-circle-outline" size="large"></ion-icon>
+        <ion-icon name="person-add-outline" size="large"></ion-icon>
+        &nbsp; Signup/Signin
       </ion-button>
-      <ion-menu-button color="light" menuId="rightMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="userCredentials.UID" slot="end">
+      <ion-text *ngIf="userCredentials.userName" style="word-break: break-all; padding-right: 15px;">
+        Welcome {{userCredentials.userName}} :)
+      </ion-text>
     </ion-buttons>
   </ion-toolbar>
   <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filteringSearch($event)" showCancelButton="focus"
@@ -15,10 +23,8 @@
 </ion-header>
 
 <ion-content>
-<ion-calendar [(ngModel)]="dateRange" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'" (change)="onChange($event)">
-</ion-calendar>
-  
-  <!-- <ion-card  style="cursor: pointer;" *ngFor="let hospital of hospitals" [routerLink]="['/doctor-list',hospital.id,hospital.name]">
+  <ion-card style="cursor: pointer;" *ngFor="let hospital of hospitals"
+    [routerLink]="['/doctor-list',hospital.id,hospital.name]">
     <ion-card-content>
       <ion-grid>
         <ion-row>
@@ -28,13 +34,45 @@
           <ion-col size-sm="10" size-md="10" size-xl="10" size-lg="10">
             <ion-label color="success">Name :</ion-label> &nbsp;
             <ion-text>{{hospital.name}}</ion-text><br><br>
-            <ion-label color="success">Address :</ion-label> &nbsp;<ion-text>{{hospital.location}}</ion-text><br><br>
+            <ion-label color="success">Address :</ion-label> &nbsp;<ion-text>{{hospital.address}}</ion-text><br><br>
             <ion-label color="success" *ngIf="hospital.specialize != ''">Specialize :</ion-label>&nbsp;<ion-text>
               {{hospital.specialize}}</ion-text><br><br>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
-  </ion-card> -->
+  </ion-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <ion-calendar [(ngModel)]="dateRange" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'"
+    (change)="onChange($event)">
+  </ion-calendar> -->
 
 </ion-content>

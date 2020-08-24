@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HospitalDetailsService } from './hospital-details.service';
+import { HospitalDetailsService } from '../services/hospital-details.service';
 import { CalendarComponentOptions, CalendarModalOptions } from 'ion2-calendar';
 import * as moment from 'moment';
+import { UserCredentialsService } from '../services/user-credentials.service';
+import { HttpClient } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -44,13 +48,19 @@ export class HomePage implements OnInit {
   };
 
 
-  constructor(public hospitalService: HospitalDetailsService) {
+  hospitalDetails = [];
+
+
+  constructor(public hospitalService: HospitalDetailsService,public userCredentials: UserCredentialsService,private http: HttpClient, private toastController: ToastController,) {
+    
     this.appointmentToDate = 1;
     console.log(new Date(Date.now() + 24 * 3600 * 1000 * this.appointmentToDate))
     console.log(Date.now())
+    // this.hospitalService.getHospitalDetails();
+    this.filteringSearch();
   }
   ngOnInit() {
-    this.filteringSearch();
+    
   }
 
 
@@ -72,7 +82,7 @@ export class HomePage implements OnInit {
     console.log(new Date(Date.now() + 24 * 3600 * 1000 * this.appointmentToDate))
   }
   filteringSearch() {
-    this.hospitals = this.hospitalService.filterItems(this.searchTerm, "hospital")
+    this.hospitals = this.hospitalService.filterItems(this.searchTerm,"hospital");    
   }
 
 }

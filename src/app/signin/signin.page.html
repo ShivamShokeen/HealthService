@@ -1,247 +1,153 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>{{type == 'signin' ? 'Sign in' : type == 'signup' ? 'Sign up' : 'Doctor Signup'}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button color="light" menuId="rightMenu"></ion-menu-button>
+    <ion-title>{{type == 'signin' ? 'Sign in' : type == 'signup' ? 'Sign up' : 'Hospital Signup'}}</ion-title>
+    <ion-buttons slot="start" *ngIf="type =='signin'">
+      <ion-menu-button color="light" menuId="leftMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="type =='hospitalSignup' || type =='signup'">
+      <ion-back-button defaultHref="['/signin/signin']"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div style="background-image: url('https://cdn.pixabay.com/photo/2019/09/28/10/38/medical-4510408__340.png');">
-  <ion-card style="top: 10%;width: 56%;left: 21%;" [hidden]="type == 'signup' || type == 'doctorSignup'">
-    <ion-card-content>
-      <form>
-        <ion-item>
-          <ion-label position="floating">Email Id</ion-label>
-          <ion-input type="text" name="email" email></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!email.value && email.touched" color="danger" style="padding:10px;">Email is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" name="pass"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!pass.value && pass.touched" color="danger" style="padding:10px;">Password is required
-        </ion-text>
-        <br>
-        <ion-button (click)="signin(email,pass)">Submit</ion-button>
-        <ion-button type="reset" (click)="reset()">Reset</ion-button>
-        <ion-button [routerLink]="['/signin/signup']">Sign up</ion-button>
-        <ion-button [routerLink]="['/signin/doctorSignup']">Doctor Sign up</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+    <ion-card style="top: 10%;width: 56%;left: 21%;" [hidden]="type == 'signup' || type == 'hospitalSignup'">
+      <ion-card-content>
+        <form>
+          <ion-item>
+            <ion-label position="floating">Email Id</ion-label>
+            <ion-input type="text" name="email" #email email required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="pass" #pass required></ion-input>
+          </ion-item>
+          <ion-button (click)="signin(email,pass)">Submit</ion-button>
+          <ion-button type="reset" (click)="reset()">Reset</ion-button>
+          <ion-button [routerLink]="['/signin/signup']">Sign up</ion-button>
+          <ion-button [routerLink]="['/signin/hospitalSignup']">Hospital Sign up</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card style="top: 10%;width: 56%;left: 21%;" [hidden]="type == 'signin' || type == 'doctorSignup'">
-    <ion-card-content>
-      <form #signupForm="ngForm">
-        <ion-item>
-          <ion-label position="floating">Name</ion-label>
-          <ion-input type="text" name="username" #username="ngModel" [(ngModel)]="userDetails.username"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!username.value && username.touched" color="danger" style="padding:10px;">Username is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Country</ion-label>
-          <ion-input type="text" name="country" #country="ngModel" [(ngModel)]="userDetails.country"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!country.value && country.touched" color="danger" style="padding:10px;">Country is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">City</ion-label>
-          <ion-input type="text" name="city" #city="ngModel" [(ngModel)]="userDetails.city"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!city.value && city.touched" color="danger" style="padding:10px;">City is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">District</ion-label>
-          <ion-input type="text" name="district" #district="ngModel" [(ngModel)]="userDetails.district"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!district.value && district.touched" color="danger" style="padding:10px;">District is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Zipcode</ion-label>
-          <ion-input type="text" name="zipcode" #zipcode="ngModel" [(ngModel)]="userDetails.zipcode"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!zipcode.value && zipcode.touched" color="danger" style="padding:10px;">Zipcode is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Phone number</ion-label>
-          <ion-input type="number" name="phone" #phone="ngModel" [(ngModel)]="userDetails.phone"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!phone.value && phone.touched" color="danger" style="padding:10px;">Phone number is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Email Id</ion-label>
-          <ion-input type="text" name="email" #email="ngModel" [(ngModel)]="userDetails.emailid" email></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!email.value && email.touched" color="danger" style="padding:10px;">Email is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" name="pass" #pass="ngModel" [(ngModel)]="userDetails.password"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!pass.value && pass.touched" color="danger" style="padding:10px;">Password is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Address</ion-label>
-          <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="userDetails.address"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!address.value && address.touched" color="danger" style="padding:10px;">Address is required
-        </ion-text>
-        <br>
-        <ion-button (click)="signup(signupForm)">Submit</ion-button>
-        <ion-button type="reset" (click)="reset()">Reset</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+    <ion-card style="top: 10%;width: 56%;left: 21%;" [hidden]="type == 'signin' || type == 'hospitalSignup'">
+      <ion-card-content>
+        <form #signupForm="ngForm">
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input type="text" name="username" #username="ngModel" [(ngModel)]="userDetails.username" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Country</ion-label>
+            <ion-input type="text" name="country" #country="ngModel" [(ngModel)]="userDetails.country" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">City</ion-label>
+            <ion-input type="text" name="city" #city="ngModel" [(ngModel)]="userDetails.city" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">District</ion-label>
+            <ion-input type="text" name="district" #district="ngModel" [(ngModel)]="userDetails.district"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Zipcode</ion-label>
+            <ion-input type="text" name="zipcode" #zipcode="ngModel" [(ngModel)]="userDetails.zipcode"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Phone number</ion-label>
+            <ion-input type="number" name="phone" #phone="ngModel" [(ngModel)]="userDetails.phone" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email Id</ion-label>
+            <ion-input type="text" name="email" #email="ngModel" [(ngModel)]="userDetails.emailid" email required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="pass" #pass="ngModel" [(ngModel)]="userDetails.password" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Address</ion-label>
+            <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="userDetails.address" required>
+            </ion-input>
+          </ion-item>
+          <ion-button (click)="userSignup(signupForm)">Submit</ion-button>
+          <ion-button type="reset">Reset</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card style="top: 10%;width: 56%;left: 21%;" [hidden]="type == 'signin' || type == 'signup'">
-    <ion-card-content>
-      <form #doctorForm="ngForm">
-        <ion-item>
-          <ion-label position="floating">Name</ion-label>
-          <ion-input type="text" name="doctorName" #doctorName="ngModel" [(ngModel)]="doctorDetails.doctorName">
-          </ion-input>
-        </ion-item>
-        <ion-text *ngIf="!doctorName.value && doctorName.touched" color="danger" style="padding:10px;">Doctor Name is
-          required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Country</ion-label>
-          <ion-input type="text" name="country" #country="ngModel" [(ngModel)]="doctorDetails.country"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!country.value && country.touched" color="danger" style="padding:10px;">Country is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">City</ion-label>
-          <ion-input type="text" name="city" #city="ngModel" [(ngModel)]="doctorDetails.city"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!city.value && city.touched" color="danger" style="padding:10px;">City is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">District</ion-label>
-          <ion-input type="text" name="district" #district="ngModel" [(ngModel)]="doctorDetails.district"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!district.value && district.touched" color="danger" style="padding:10px;">District is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Zipcode</ion-label>
-          <ion-input type="number" name="zipcode" #zipcode="ngModel" [(ngModel)]="doctorDetails.zipcode"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!zipcode.value && zipcode.touched" color="danger" style="padding:10px;">Zipcode is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Registration number</ion-label>
-          <ion-input type="number" name="registrationNumber" #registrationNumber="ngModel"
-            [(ngModel)]="doctorDetails.registrationNumber"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!registrationNumber.value && registrationNumber.touched" color="danger" style="padding:10px;">
-          Registration Number is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Degree</ion-label>
-          <ion-input type="text" name="degree" #degree="ngModel" [(ngModel)]="doctorDetails.degree"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!degree.value && degree.touched" color="danger" style="padding:10px;">Degree is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Experience</ion-label>
-          <ion-input type="text" name="experience" #experience="ngModel" [(ngModel)]="doctorDetails.experience">
-          </ion-input>
-        </ion-item>
-        <ion-text *ngIf="!experience.value && experience.touched" color="danger" style="padding:10px;">Experience is
-          required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Services</ion-label>
-          <ion-input type="text" name="services" #services="ngModel" [(ngModel)]="doctorDetails.services"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!services.value && services.touched" color="danger" style="padding:10px;">services is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Offer</ion-label>
-          <ion-textarea type="text" name="offer" #offer="ngModel" [(ngModel)]="doctorDetails.offer"></ion-textarea>
-        </ion-item>
-        <ion-text *ngIf="!offer.value && offer.touched" color="danger" style="padding:10px;">Offer is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Fee</ion-label>
-          <ion-input type="number" name="fee" #fee="ngModel" [(ngModel)]="doctorDetails.fee"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!fee.value && fee.touched" color="danger" style="padding:10px;">Fee is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Working day</ion-label>
-          <ion-input type="number" name="workingDay" #workingDay="ngModel" [(ngModel)]="doctorDetails.workingDay">
-          </ion-input>
-        </ion-item>
-        <ion-text *ngIf="!workingDay.value && workingDay.touched" color="danger" style="padding:10px;">Working Day is
-          required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Working shift</ion-label>
-          <ion-input type="text" name="workingShift" #workingShift="ngModel" [(ngModel)]="doctorDetails.workingShift">
-          </ion-input>
-        </ion-item>
-        <ion-text *ngIf="!workingShift.value && workingShift.touched" color="danger" style="padding:10px;">Working Shift
-          is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Phone number</ion-label>
-          <ion-input type="number" name="phone" #phone="ngModel" [(ngModel)]="doctorDetails.phone"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!phone.value && phone.touched" color="danger" style="padding:10px;">Phone number is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Email Id</ion-label>
-          <ion-input type="text" name="email" #email="ngModel" [(ngModel)]="doctorDetails.emailid" email></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!email.value && email.touched" color="danger" style="padding:10px;">Email is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" name="pass" #pass="ngModel" [(ngModel)]="doctorDetails.password"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!pass.value && pass.touched" color="danger" style="padding:10px;">Password is required
-        </ion-text>
-        <br>
-        <ion-item>
-          <ion-label position="floating">Address</ion-label>
-          <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="doctorDetails.address"></ion-input>
-        </ion-item>
-        <ion-text *ngIf="!address.value && address.touched" color="danger" style="padding:10px;">Address is required
-        </ion-text>
-        <br>
-        <ion-button (click)="doctorSignup(doctorForm)">Submit</ion-button>
-        <ion-button type="reset" (click)="reset()">Reset</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+    <ion-card style="top: 10%;width: 56%;left: 21%;" [hidden]="type == 'signin' || type == 'signup'">
+      <ion-card-content>
+        <form #doctorForm="ngForm">
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input type="text" name="name" #name="ngModel" [(ngModel)]="hospitalDetails.name" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Image URL</ion-label>
+            <ion-input type="text" name="image" #image="ngModel" [(ngModel)]="hospitalDetails.image" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Country</ion-label>
+            <ion-input type="text" name="country" #country="ngModel" [(ngModel)]="hospitalDetails.country" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">City</ion-label>
+            <ion-input type="text" name="city" #city="ngModel" [(ngModel)]="hospitalDetails.city" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Specialize</ion-label>
+            <ion-input type="text" name="specialize" #specialize="ngModel" [(ngModel)]="hospitalDetails.specialize"
+              required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Insurance support</ion-label>
+            <ion-input type="text" name="insuranceSupport"
+              placeholder="If you don't have any insurance support just right no" #insuranceSupport="ngModel"
+              [(ngModel)]="hospitalDetails.insuranceSupport" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Zipcode</ion-label>
+            <ion-input type="number" name="zipcode" #zipcode="ngModel" [(ngModel)]="hospitalDetails.zipcode">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Registration number</ion-label>
+            <ion-input type="number" name="registrationNumber" #registrationNumber="ngModel"
+              [(ngModel)]="hospitalDetails.registrationNumber" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Phone number</ion-label>
+            <ion-input type="number" name="phone" #phone="ngModel" [(ngModel)]="hospitalDetails.phone" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email Id</ion-label>
+            <ion-input type="text" name="email" #email="ngModel" [(ngModel)]="hospitalDetails.emailid" email required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="pass" #pass="ngModel" [(ngModel)]="hospitalDetails.password" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Address</ion-label>
+            <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="hospitalDetails.address" required>
+            </ion-input>
+          </ion-item>
+          <ion-button (click)="hospitalSignup(doctorForm)">Submit</ion-button>
+          <ion-button type="reset">Reset</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>

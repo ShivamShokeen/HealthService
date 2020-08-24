@@ -4,9 +4,6 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-menu-button color="light" menuId="rightMenu"></ion-menu-button>
-    </ion-buttons>
   </ion-toolbar>
   <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()" showCancelButton="focus"
     cancelButtonText="Custom Cancel" animated=true placeholder="Doctor name"></ion-searchbar>
@@ -22,8 +19,8 @@
           </ion-col>
           <ion-col size-sm="5" size-md="5" size-xl="5" size-lg="5">
             <ion-label color="success">Name</ion-label> &nbsp;<ion-text>: {{doctor.name}}</ion-text><br><br>
-            <ion-label color="success">Email</ion-label> &nbsp;<ion-text>: {{doctor.email}}</ion-text><br><br>
-            <ion-label color="success">Phone number</ion-label> &nbsp;<ion-text>: {{doctor.phoneNumber}}</ion-text>
+            <ion-label color="success">Email</ion-label> &nbsp;<ion-text>: {{doctor.emailid}}</ion-text><br><br>
+            <ion-label color="success">Phone number</ion-label> &nbsp;<ion-text>: {{doctor.phone}}</ion-text>
             <br><br>
             <ion-label color="success">Languages spoken</ion-label> &nbsp;<ion-text>: {{doctor.languagesSpoken}}
             </ion-text><br><br>
@@ -41,6 +38,8 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <ion-button type="submit" expand="block" fill="outline"
+        (click)="bookAppointment(doctor.doctorId,doctor.hospitalId,doctor.image,doctor.phone,doctor.fees)">Book appointment</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

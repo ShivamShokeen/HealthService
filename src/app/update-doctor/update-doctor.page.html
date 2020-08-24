@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Update doctor</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="editDoctor">
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Name </ion-label>
+        <ion-input formControlName="name" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Images url</ion-label>
+        <ion-input formControlName="image" #image required></ion-input>
+      </ion-item>
+      <img *ngIf="image.value" [src]="image.value" height="300px;" width="100%">
+      <ion-item>
+        <ion-label position="stacked">Email id </ion-label>
+        <ion-input formControlName="emailid" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password </ion-label>
+        <ion-input formControlName="password" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Degree</ion-label>
+        <ion-input formControlName="degree"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Experience</ion-label>
+        <ion-input formControlName="experience"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Facilities</ion-label>
+        <ion-input formControlName="facilities" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Appointment slots</ion-label>
+        <ion-input formControlName="appointmentSlots" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Fees</ion-label>
+        <ion-input formControlName="fees" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Languages spoken</ion-label>
+        <ion-input formControlName="languagesSpoken" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Phone</ion-label>
+        <ion-input formControlName="phone" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Specialize</ion-label>
+        <ion-input formControlName="specialize" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Timing</ion-label>
+        <ion-input formControlName="timing" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Working day</ion-label>
+        <ion-input formControlName="workingDay" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Working shift</ion-label>
+        <ion-input formControlName="workingShift" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">City</ion-label>
+        <ion-input formControlName="city" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Country</ion-label>
+        <ion-input formControlName="country" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Address</ion-label>
+        <ion-input formControlName="address" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Zipcode</ion-label>
+        <ion-input formControlName="zipcode" required></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="block" fill="outline" (click)="updateData(editDoctor)">Change</ion-button>
+  <ion-button expand="block" fill="outline" type="reset">Reset</ion-button>
+</ion-footer>

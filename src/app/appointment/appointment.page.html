@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-text class="ion-text-center">
+        {{urlParameter == 'add'? 'Add appointment' : 'Edit appointment' }}
+      </ion-text>
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon size="large" name="calendar-outline"></ion-icon> &nbsp;&nbsp;
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="urlParameter == 'add'">
+    <form #add="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" name="name" #name="ngModel" [(ngModel)]="addAppointment.name" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Aadhaar card</ion-label>
+          <ion-input type="text" name="aadhaarCard" #aadhaarCard="ngModel" [(ngModel)]="addAppointment.aadhaarCard">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Click to select date and time</ion-label>
+          <ion-datetime placeholder="Date-Month-Year Hour Minutes" display-timezone="utc"
+            displayFormat="D-MMMM-YYYY HH:mm" name="dateAndTime" #dateAndTime="ngModel"
+            [(ngModel)]="addAppointment.dateAndTime"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Phone number</ion-label>
+          <ion-input type="text" name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="addAppointment.phoneNumber"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Alternative phone number</ion-label>
+          <ion-input type="text" name="alternativeNumber" #alternativeNumber="ngModel"
+            [(ngModel)]="addAppointment.alternativeNumber" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Disease</ion-label>
+          <ion-input type="text" name="disease" #disease="ngModel" [(ngModel)]="addAppointment.disease" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Symptoms</ion-label>
+          <ion-input type="text" name="symptoms" #symptoms="ngModel" [(ngModel)]="addAppointment.symptoms" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">From how many days you are suffering?</ion-label>
+          <ion-input placeholder="1 Day or 1 Week or 1 Month" type="text" name="howManyDays" #howManyDays="ngModel"
+            [(ngModel)]="addAppointment.howManyDays" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Age</ion-label>
+          <ion-input type="text" name="age" #age="ngModel" [(ngModel)]="addAppointment.age" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Is it related to ancestor disease?</ion-label>
+          <ion-input type="text" name="ancestorDisease" #ancestorDisease="ngModel"
+            [(ngModel)]="addAppointment.ancestorDisease" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Any recent treatment?</ion-label>
+          <ion-input type="text" name="anyRecentTreatment" #anyRecentTreatment="ngModel"
+            [(ngModel)]="addAppointment.anyRecentTreatment" required>
+          </ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button type="submit" expand="block" fill="outline" (click)="submit(add)">Submit</ion-button>
+      <ion-button type="reset" expand="block" fill="outline">Reset</ion-button>
+    </form>
+  </div>
+
+  <div *ngIf="urlParameter == 'edit'">
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+              <img src="">
+            </ion-col>
+            <ion-col size="8">
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

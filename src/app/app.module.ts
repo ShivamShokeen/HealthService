@@ -8,13 +8,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SigninDetailsService } from './signin/signin-details.service';
-import { HospitalDetailsService } from './home/hospital-details.service';
+import { HospitalDetailsService } from './services/hospital-details.service';
 
 // Calendar UI Module
 import { CalendarModule } from 'ion2-calendar';
 import { HomePage } from './home/home.page';
 import { HomePageModule } from './home/home.module';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,15 +24,16 @@ import { HomePageModule } from './home/home.module';
   imports:
     [      
       CalendarModule,
-      BrowserModule,
+      BrowserModule,      
+      AngularFireModule.initializeApp(environment.firebaseConfig),
       IonicModule.forRoot(),
       AppRoutingModule,
-      HomePageModule
+      HomePageModule,
+      HttpClientModule,
     ],
   providers: [
     StatusBar,
     SplashScreen,
-    SigninDetailsService,
     HospitalDetailsService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

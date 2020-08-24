@@ -1,9 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>booked-appointment</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Booked appointment</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div *ngIf="appointmentList == null && bookedAppointments.length == 0" class="ion-text-center"
+    style="padding-top: 20%;">
+    <ion-text color="danger" style="font-size: xxx-large;">
+      No appointment.
+    </ion-text>
+  </div>
+  <div *ngIf="bookedAppointments.length >0">
+    <ion-card *ngFor="let bookedAppointments of bookedAppointments">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size=4>
+              <img src="{{bookedAppointments.doctorImage}}" height=" fit-content">
+            </ion-col>
+            <ion-col size="8">
+              <ion-text color="success">Doctor name:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.name}}</ion-text> <br /><br />
+              <ion-text color="success">Appointment date and time:</ion-text>
+              <ion-datetime disabled color="primary" value="{{bookedAppointments.dateAndTime }}"
+                displayFormat="MM/DD/YYYY-HH:mm"></ion-datetime>
+              <!-- <ion-text displayFormat="MM/DD/YYYY-HH:mm">{{bookedAppointments.dateAndTime}}</ion-text> <br /><br /> -->
+              <!-- <ion-text color="success" *ngIf="price">Price: </ion-text>&nbsp;&nbsp;
+            <ion-text *ngIf="price">{{bookedAppointments.dateAndTime}}</ion-text> <br /><br /> -->
+              <ion-text color="success">Hospital location:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.location}}</ion-text> <br /><br />
+              <ion-text color="success">Hospital contact number:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.hospitalNumber}}</ion-text> <br /><br />
+              <ion-text color="success">Doctor contact number:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.doctorNumber}}</ion-text> <br /><br />
+              <ion-text color="success">Insurance support:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.insuranceSupport}}</ion-text> <br /><br />
+              <ion-text color="success">Security deposit:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.securityDeposit}}</ion-text>
+              <br /><br />
+              <ion-text>If you are unable to reach then this deposit is used as an penalty or if you reached you can
+                used it for fees payment and now you need to pay just other half.</ion-text><br /><br />
+              <ion-text color="danger">Your appointment is valid for 1 hour only from the time you selected</ion-text>
+              <ion-button expand="block" fill="outline" color="danger"
+                (click)="deleteAppointment(bookedAppointments.id)">Delete appointment</ion-button><br />
+              <ion-button expand="block" fill="outline">Change appointment</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

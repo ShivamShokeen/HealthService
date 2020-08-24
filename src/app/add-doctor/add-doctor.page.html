@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{urlParameter == 'add' ? 'Add doctor' : 'Edit doctor'}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #doctorForm="ngForm" *ngIf="urlParameter == 'add'">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" name="name" #name="ngModel" [(ngModel)]="doctorDetails.name" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Image</ion-label>
+      <ion-input type="text" name=image #image="ngModel" [(ngModel)]="doctorDetails.image" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Specialize</ion-label>
+      <ion-input type="text" name=specialize #specialize="ngModel" [(ngModel)]="doctorDetails.specialize" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Languages spoken</ion-label>
+      <ion-input type="text" name=languagesSpoken #languagesSpoken="ngModel" [(ngModel)]="doctorDetails.languagesSpoken"
+        required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Timing</ion-label>
+      <ion-input type="text" placeholder="For example = 10 am to 6pm, Emergency Care all hours" name=timing
+        #timing="ngModel" [(ngModel)]="doctorDetails.timing" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fees</ion-label>
+      <ion-input type="text" name=fees #fees="ngModel" [(ngModel)]="doctorDetails.fees" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Facilities</ion-label>
+      <ion-input type="text" placeholder="like Free checkup" name=facilities #facilities="ngModel"
+        [(ngModel)]="doctorDetails.facilities" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Appointment slots</ion-label>
+      <ion-input type="text" placeholder="For example = '20' means you can handle 20 patient's every day"
+        name=appointmentSlots #appointmentSlots="ngModel" [(ngModel)]="doctorDetails.appointmentSlots" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Country</ion-label>
+      <ion-input type="text" name="country" #country="ngModel" [(ngModel)]="doctorDetails.country" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-input type="text" name="city" #city="ngModel" [(ngModel)]="doctorDetails.city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Zipcode</ion-label>
+      <ion-input type="number" name="zipcode" #zipcode="ngModel" [(ngModel)]="doctorDetails.zipcode"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Registration number</ion-label>
+      <ion-input type="number" name="registrationNumber" #registrationNumber="ngModel"
+        [(ngModel)]="doctorDetails.registrationNumber" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Degree</ion-label>
+      <ion-input type="text" name="degree" #degree="ngModel" [(ngModel)]="doctorDetails.degree" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Experience</ion-label>
+      <ion-input type="text" name="experience" #experience="ngModel" [(ngModel)]="doctorDetails.experience" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Working day</ion-label>
+      <ion-input type="text" placeholder="For example : 6 days or 1 week" name="workingDay" #workingDay="ngModel"
+        [(ngModel)]="doctorDetails.workingDay" required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Working shift</ion-label>
+      <ion-input type="text" name="workingShift" #workingShift="ngModel" [(ngModel)]="doctorDetails.workingShift"
+        required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Phone number</ion-label>
+      <ion-input type="number" name="phone" #phone="ngModel" [(ngModel)]="doctorDetails.phone" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email Id</ion-label>
+      <ion-input type="text" name="email" #email="ngModel" [(ngModel)]="doctorDetails.emailid" email required>
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" name="pass" #pass="ngModel" [(ngModel)]="doctorDetails.password" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="doctorDetails.address" required></ion-input>
+    </ion-item>
+  </form>
+
+  <div *ngIf="urlParameter =='edit'">
+    <ion-card *ngFor="let ediDoctor of editDoctorDetails">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size-sm="2" size-md="2" size-xl="2" size-lg="2">
+              <img src={{ediDoctor.image}} width="500px" height="150px">
+            </ion-col>
+            <ion-col size-sm="5" size-md="5" size-xl="5" size-lg="5">
+              <ion-label color="success">Name</ion-label> &nbsp;<ion-text>: {{ediDoctor.name}}</ion-text><br /><br />
+              <ion-label color="success">Email</ion-label> &nbsp;<ion-text>: {{ediDoctor.emailid}}</ion-text>
+              <br /><br />
+              <ion-label color="success">Phone number</ion-label> &nbsp;<ion-text>: {{ediDoctor.phone}}</ion-text>
+              <br /><br />
+              <ion-label color="success">Languages spoken</ion-label> &nbsp;<ion-text>: {{ediDoctor.languagesSpoken}}
+              </ion-text><br /><br />
+              <ion-label color="success">Facilities</ion-label> &nbsp;<ion-text>: {{ediDoctor.facilities}}
+              </ion-text>
+            </ion-col>
+            <ion-col size-sm="5" size-md="5" size-xl="5" size-lg="5">
+              <ion-label color="success">Timing</ion-label> &nbsp;<ion-text>: {{ediDoctor.timing}}</ion-text>
+              <br /><br />
+              <ion-label color="success">Specialize</ion-label> &nbsp;<ion-text>: {{ediDoctor.specialize}}</ion-text>
+              <br /><br />
+              <ion-label color="success">Fees</ion-label> &nbsp;<ion-text>: {{ediDoctor.fees}}</ion-text><br /><br />
+              <ion-label color="success">Available Appointment Slots</ion-label> &nbsp;<ion-text>:
+                {{ediDoctor.appointmentSlots}}</ion-text><br /><br />
+              <ion-label color="success">Experience</ion-label> &nbsp;<ion-text>:
+                {{ediDoctor.experience}}</ion-text><br /><br />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-button expand="block" fill="outline" style="cursor: pointer;" [routerLink]="['/update-doctor']" [queryParams]="{ hospitalId: ediDoctor.hospitalId,doctorId: ediDoctor.id }"><ion-icon name="create-outline"></ion-icon> &nbsp;
+          Edit</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer>
+  <div *ngIf="urlParameter == 'add'">
+    <ion-button expand="block" fill="outline" (click)="hospitalSignup(doctorForm)">Submit</ion-button> <br />
+    <ion-button expand="block" fill="outline" type="reset" (click)="resetForm()">Reset</ion-button>
+  </div>
+</ion-footer>

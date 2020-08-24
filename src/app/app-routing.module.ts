@@ -27,6 +27,27 @@ const routes: Routes = [
     path: 'booked-appointment',
     loadChildren: () => import('./booked-appointment/booked-appointment.module').then( m => m.BookedAppointmentPageModule)
   },
+  {
+    path: 'appointment/:for',
+    loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
+  },
+  {
+    path: 'modify-appointment',
+    loadChildren: () => import('./modify-appointment/modify-appointment.module').then( m => m.ModifyAppointmentPageModule)
+  },
+  {
+    path: 'add-doctor/:for',
+    loadChildren: () => import('./add-doctor/add-doctor.module').then( m => m.AddDoctorPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },  {
+    path: 'update-doctor',
+    loadChildren: () => import('./update-doctor/update-doctor.module').then( m => m.UpdateDoctorPageModule)
+  },
+
+
 ];
 
 @NgModule({
