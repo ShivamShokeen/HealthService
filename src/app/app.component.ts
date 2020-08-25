@@ -35,7 +35,6 @@ export class AppComponent {
 
   userLogout() {
     firebase.auth().signOut().then(() => {
-      console.log("Sign-out successful.");
       this.userCredential.userName = "";
       this.userCredential.hospitalUID = "";
       this.userCredential.UID = "";

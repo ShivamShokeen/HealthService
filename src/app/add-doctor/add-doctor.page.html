@@ -103,6 +103,8 @@
       <ion-label position="floating">Address</ion-label>
       <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="doctorDetails.address" required></ion-input>
     </ion-item>
+    <ion-button expand="block" fill="outline" (click)="hospitalSignup(doctorForm)">Submit</ion-button> <br />
+    <ion-button expand="block" fill="outline" type="reset" (click)="resetForm()">Reset</ion-button>
   </form>
 
   <div *ngIf="urlParameter =='edit'">
@@ -137,15 +139,14 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ion-button expand="block" fill="outline" style="cursor: pointer;" [routerLink]="['/update-doctor']" [queryParams]="{ hospitalId: ediDoctor.hospitalId,doctorId: ediDoctor.id }"><ion-icon name="create-outline"></ion-icon> &nbsp;
-          Edit</ion-button>
+        <ion-button expand="block" fill="outline" style="cursor: pointer;" [routerLink]="['/update-doctor']"
+          [queryParams]="{ hospitalId: ediDoctor.hospitalId,doctorId: ediDoctor.id }">
+          <ion-icon name="create-outline"></ion-icon> &nbsp;
+          Edit
+        </ion-button>
+        <ion-button expand="block" fill="outline" style="cursor: pointer;" color="danger"
+          (click)="deleteDoctor(ediDoctor.id)">Delete</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
-<ion-footer>
-  <div *ngIf="urlParameter == 'add'">
-    <ion-button expand="block" fill="outline" (click)="hospitalSignup(doctorForm)">Submit</ion-button> <br />
-    <ion-button expand="block" fill="outline" type="reset" (click)="resetForm()">Reset</ion-button>
-  </div>
-</ion-footer>

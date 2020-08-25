@@ -630,19 +630,14 @@ export class UserCredentialsService {
         return this.allUserAccountDetails;
       })
     ).subscribe(getData => {
-      // console.log(getData);
     });
 
   }
 
   getLogginUserDetails() {
-    console.log(this.UID)
     if (this.allUserAccountDetails.length > 0) {
-      console.log(this.allUserAccountDetails);
       this.userDetails = this.allUserAccountDetails.filter(value => this.UID == value.uid);
       this.hospitalDetails = this.allUserAccountDetails.filter(value => this.UID == value.uid && value.type == "hospital");
-      console.log(this.userDetails);
-      console.log(this.hospitalDetails);
       if (this.userDetails) {
         this.userDetails.forEach(element => {
           this.userUID = element.uid;
@@ -653,7 +648,6 @@ export class UserCredentialsService {
       if (this.hospitalDetails) {
         this.hospitalDetails.forEach(element => {
           this.hospitalId = element.id;
-          console.log(this.hospitalId);
           this.hospitalUID = element.uid;
           this.userName = element.name;
           this.userId = element.id;

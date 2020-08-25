@@ -48,15 +48,24 @@ export class AddDoctorPage implements OnInit {
       this.router.navigate(['/home']);
     }
     this.urlParameter = this.route.snapshot.params['for'];
-    console.log(this.hospitalDetails.doctorDetails)
-    this.editDoctorDetails = this.hospitalDetails.doctorDetails.filter((value) => value.hospitalId == this.userCredentials.hospitalId)
-    console.log(this.userCredentials.hospitalId)
-    console.log(this.editDoctorDetails)
-    if (this.editDoctorDetails.length == 0) {
-      console.log("No doctor is created");
-      this.noDoctor();
-      this.router.navigate(['add-doctor/add']);
-    }
+    let filterCondition: any;
+    let referance;
+    let duplicateData = [];
+    let removeDup: any;
+    referance = firebase.database().ref('/doctors').on("value", (snapshot) => {
+      for (const key in snapshot.val()) {
+        if (snapshot.val().hasOwnProperty(key)) {
+          filterCondition = { ...snapshot.val()[key], id: key };
+          duplicateData.push(filterCondition);
+          removeDup = duplicateData.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+
+          this.editDoctorDetails = removeDup.filter((value) => value.hospitalId == this.userCredentials.hospitalId)
+        }
+      }
+    });
+    // if (this.editDoctorDetails.length == 0) {
+    //   this.router.navigate(['add-doctor/add']);
+    // }
   }
 
   ngOnInit() {
@@ -78,7 +87,6 @@ export class AddDoctorPage implements OnInit {
         address: this.doctorDetails.address,
         disable: "none"
       }
-      console.log(this.doctorDetails)
       firebase.auth().createUserWithEmailAndPassword(doctorForm.value.email, doctorForm.value.pass)
         .then(
           (user) => {
@@ -132,8 +140,17 @@ export class AddDoctorPage implements OnInit {
       experience: "",
       degree: ""
     }
-    console.log("reseted");
   }
+
+  deleteDoctor(id) {
+    let specificUrl: string;
+    specificUrl = 'https://healthservice-97887.firebaseio.com/doctors/' + id + '.json';
+    this.http.delete(specificUrl).subscribe(data => { });
+    this.deletedSuccessfully();
+    this.router.navigate(['/home']);
+  }
+
+
   async signupErrorMessage(message) {
     const toast = await this.toastController.create({
       message: message,
@@ -154,10 +171,19 @@ export class AddDoctorPage implements OnInit {
     toast.present();
   }
 
-
   async addedSuccessfully() {
     const toast = await this.toastController.create({
       message: 'Added successfully :)',
+      duration: 3000,
+      position: "middle",
+      color: "primary"
+    });
+    toast.present();
+  }
+
+  async deletedSuccessfully() {
+    const toast = await this.toastController.create({
+      message: 'Deleted successfully :)',
       duration: 3000,
       position: "middle",
       color: "primary"

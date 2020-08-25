@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="appointmentList == null && bookedAppointments.length == 0" class="ion-text-center"
+  <!-- <div *ngIf="appointmentList == null && bookedAppointments.length == 0" class="ion-text-center"
     style="padding-top: 20%;">
     <ion-text color="danger" style="font-size: xxx-large;">
       No appointment.
     </ion-text>
-  </div>
-  <div *ngIf="bookedAppointments.length >0">
+  </div> -->
+  <div>
     <ion-card *ngFor="let bookedAppointments of bookedAppointments">
       <ion-card-content>
         <ion-grid>

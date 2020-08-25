@@ -27,7 +27,6 @@ export class UpdateDoctorPage implements OnInit {
       this.hospitalId = this.route.snapshot.queryParams['hospitalId'];
       this.doctorId = this.route.snapshot.queryParams['doctorId'];
       this.doctorDetails = this.hospitalDetails.doctorDetails.find((value) => value.hospitalId == this.hospitalId && value.id == this.doctorId)
-      console.log(this.doctorDetails);
     }
   }
 
@@ -59,7 +58,6 @@ export class UpdateDoctorPage implements OnInit {
     let specificUrl: string;
     let customizedObject: any;
     specificUrl = 'https://healthservice-97887.firebaseio.com/doctors/' + this.doctorId + '.json';
-    console.log(specificUrl);
     if (form.valid) {
       customizedObject = {
         address: form.value.address,

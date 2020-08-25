@@ -74,7 +74,6 @@ export class SigninPage implements OnInit {
 
   userSignup(form) {
     if (this.clearErrorMessage == true && form.valid) {
-      console.log(form.value);
       this.type = 'signin';
       firebase.auth().createUserWithEmailAndPassword(form.value.email, form.value.pass)
         .then(
@@ -85,10 +84,8 @@ export class SigninPage implements OnInit {
                 displayName: this.userDetails.username
               });
             }
-            console.log(userLogginDetails.uid);
             this.userDetails.uid = userLogginDetails.uid;
             this.http.post('https://healthservice-97887.firebaseio.com/accounts.json', this.userDetails).subscribe(responseData => {
-              console.log("User signup successfully");
             });
           }
         )
@@ -105,7 +102,6 @@ export class SigninPage implements OnInit {
   }
   hospitalSignup(doctorForm) {
     if (this.clearErrorMessage == true && doctorForm.valid) {
-      console.log(doctorForm.value);
       this.type = 'signin';
       firebase.auth().createUserWithEmailAndPassword(doctorForm.value.email, doctorForm.value.pass)
         .then(
@@ -116,10 +112,8 @@ export class SigninPage implements OnInit {
                 displayName: this.hospitalDetails.name
               });
             }
-            console.log(userLogginDetails.uid);
             this.hospitalDetails.uid = userLogginDetails.uid;
             this.http.post('https://healthservice-97887.firebaseio.com/accounts.json', this.hospitalDetails).subscribe(responseData => {
-              console.log("Doctor signup successfully");
             });
           }
         )
@@ -137,7 +131,6 @@ export class SigninPage implements OnInit {
 
   reset() {
     this.clearErrorMessage = false;
-    console.log("reseted");
   }
 
   async signupErrorMessage(message) {

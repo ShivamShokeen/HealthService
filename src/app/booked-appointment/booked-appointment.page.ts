@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { ModalController, ToastController } from '@ionic/angular';
 import { UserCredentialsService } from '../services/user-credentials.service';
 import * as firebase from 'firebase';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-booked-appointment',
@@ -13,38 +12,33 @@ import * as moment from 'moment';
 })
 export class BookedAppointmentPage implements OnInit {
 
-  bookedAppointments = [];
+  bookedAppointments: any;
   appointmentList: any;
   constructor(private route: ActivatedRoute, private router: Router,
-    private http: HttpClient, public modalController: ModalController, public toastController: ToastController,public userCredentials : UserCredentialsService) {
-     }
+    private http: HttpClient, public modalController: ModalController, public toastController: ToastController, public userCredentials: UserCredentialsService) {
+  }
 
   ngOnInit() {
-    // location from hospital,contact number
-    // add price and seccurity deposit
-    if(this.bookedAppointments.length == 0){
-      this.waitingMessage();
-    }
-    let reference:any;
-    reference = firebase.database().ref('/appointmentDetails').on("value",(snapshot) =>{
-      console.log(snapshot.val());
+    let listedAppointments = [];
+    let filterCondition: any;
+    let reference: any;
+    reference = firebase.database().ref('/appointmentDetails').on("value", (snapshot) => {
       this.appointmentList = snapshot.val();
-      console.log(this.appointmentList)
-      let index : string;
-      for(index in snapshot.val()){
-        if(snapshot.val().hasOwnProperty(index)){
-          this.bookedAppointments.push({ ...snapshot.val()[index], id: index }) ;
-          console.log(this.bookedAppointments);
+      let index: string;
+      for (index in snapshot.val()) {
+        if (snapshot.val().hasOwnProperty(index)) {
+          listedAppointments.push({ ...snapshot.val()[index], id: index });
+          filterCondition = listedAppointments.filter((value) => value.hospitalId == this.userCredentials.userId);
+          this.bookedAppointments = filterCondition;
         }
       }
     })
-    console.log(this.bookedAppointments);
   }
 
-  deleteAppointment(appointmentId){
+  deleteAppointment(appointmentId) {
     let specificUrl: string;
-    specificUrl = 'https://healthservice-97887.firebaseio.com/appointmentDetails/'+appointmentId+'.json';
-    this.http.delete(specificUrl).subscribe(data =>{
+    specificUrl = 'https://healthservice-97887.firebaseio.com/appointmentDetails/' + appointmentId + '.json';
+    this.http.delete(specificUrl).subscribe(data => {
       this.deletedAppointmentMessage();
       this.router.navigate(['/home']);
     })

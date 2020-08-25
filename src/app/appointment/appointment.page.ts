@@ -47,9 +47,7 @@ export class AppointmentPage implements OnInit {
     }
     else {
       this.urlParameter = this.route.snapshot.params['for'];
-      console.log(this.urlParameter)
       this.hospitalDetails = this.hospitalService.hospitalDetails.find((value) => value.id == this.route.snapshot.queryParamMap.get('hospitalId'));
-      console.log(this.hospitalDetails);
       if (this.hospitalDetails) {
         this.addAppointment.hospitalNumber = this.hospitalDetails.phone;
         this.addAppointment.location = this.hospitalDetails.address;
@@ -59,7 +57,6 @@ export class AppointmentPage implements OnInit {
       }
       let fees: any;
       fees = this.route.snapshot.queryParamMap.get('doctorFees');
-      console.log(fees)
       this.securityDeposit = fees / 2;
       if (this.securityDeposit != 0) {
         this.addAppointment.securityDeposit = this.securityDeposit;
@@ -72,7 +69,6 @@ export class AppointmentPage implements OnInit {
 
   submit(form: NgForm) {
     if (form.valid) {
-      console.log(this.addAppointment)
       this.http.post('https://healthservice-97887.firebaseio.com/appointmentDetails.json', this.addAppointment).subscribe(data => {
         this.appointmentTimeMessage();
         this.router.navigate(['/home']);
