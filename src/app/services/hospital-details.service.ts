@@ -30,21 +30,7 @@ export class HospitalDetailsService {
         }
         return this.accountDetails;
       })
-    ).subscribe(getData => {
-      //  console.log(getData);
-    });
-
-    // this.http.get('https://healthservice-97887.firebaseio.com/doctors.json').pipe(
-    //   map(responseData => {
-    //     for (const key in responseData) {
-    //       if (responseData.hasOwnProperty(key)) {
-    //         this.doctorDetails.push({ ...responseData[key], id: key })
-    //       }
-    //     }
-    //     return this.doctorDetails;
-    //   })
-    // ).subscribe(getData => {
-    // });
+    ).subscribe(getData => { });
   }
 
   filterItems(searchTerm: string, searchFor) {
@@ -61,27 +47,6 @@ export class HospitalDetailsService {
         console.log("There might be some other error")
       }
     }
-
-
-    // if (searchTerm == "" && searchFor == "doctor") {
-    //   return doctorDetail;
-    // }
-    // else if (searchTerm == "" || searchTerm == undefined && searchFor == "hospital") {
-    //   return this.hospitalDetails;
-    // }
-    // else if (searchTerm != "" && searchFor == "doctor") {
-    //   return doctorDetail.filter(item => {
-    //     return item.name.toLocaleLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-    //   })
-    // }
-    // else if (searchTerm != "" || searchTerm != undefined && searchFor == "hospital") {
-    //   return this.hospitalDetails.filter(item => {
-    //     return item.name.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) > -1 || item.address.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) > -1 || item.specialize.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) > -1
-    //   })
-    // }
-    // else {
-    //   console.log("Someting might wrong please reload the site.")
-    // }
   }
 
   doctorSearch(searchTerm: string,id) {

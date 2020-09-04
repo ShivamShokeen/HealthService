@@ -14,13 +14,18 @@ export class BookedAppointmentPage implements OnInit {
 
   bookedAppointments: any;
   appointmentList: any;
+  hospitalStaffBookedAppointments: any;
   constructor(private route: ActivatedRoute, private router: Router,
     private http: HttpClient, public modalController: ModalController, public toastController: ToastController, public userCredentials: UserCredentialsService) {
+    if (!this.userCredentials.UID) {
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit() {
     let listedAppointments = [];
     let filterCondition: any;
+    let getHospitalStaffBookedAppointment: any;
     let reference: any;
     reference = firebase.database().ref('/appointmentDetails').on("value", (snapshot) => {
       this.appointmentList = snapshot.val();
@@ -28,8 +33,10 @@ export class BookedAppointmentPage implements OnInit {
       for (index in snapshot.val()) {
         if (snapshot.val().hasOwnProperty(index)) {
           listedAppointments.push({ ...snapshot.val()[index], id: index });
-          filterCondition = listedAppointments.filter((value) => value.hospitalId == this.userCredentials.userId);
+          filterCondition = listedAppointments.filter((value) => value.userId == this.userCredentials.userId);
           this.bookedAppointments = filterCondition;
+          getHospitalStaffBookedAppointment = listedAppointments.filter((value) => value.hospitalId == this.userCredentials.userId);
+          this.hospitalStaffBookedAppointments = getHospitalStaffBookedAppointment;
         }
       }
     })

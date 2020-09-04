@@ -19,6 +19,8 @@ export class UserCredentialsService {
   hospitalId: string;
   hospitalName : string;
   businessCustomOrganizationName : string;
+  patientId: string;
+  type: string;
   Country = [
     {
       name: "Afghanistan"
@@ -616,23 +618,8 @@ export class UserCredentialsService {
     }
   ];
   constructor(private http: HttpClient, private toastController: ToastController,) {
-    this.fetchUserDetails();
   }
 
-  fetchUserDetails() {
-    this.http.get('https://healthservice-97887.firebaseio.com/accounts.json').pipe(
-      map(responseData => {
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            this.allUserAccountDetails.push({ ...responseData[key], id: key })
-          }
-        }
-        return this.allUserAccountDetails;
-      })
-    ).subscribe(getData => {
-    });
-
-  }
 
   getLogginUserDetails() {
     if (this.allUserAccountDetails.length > 0) {
@@ -642,7 +629,9 @@ export class UserCredentialsService {
         this.userDetails.forEach(element => {
           this.userUID = element.uid;
           this.userId = element.id;
+          this.patientId = element.id;
           this.userName = element.name;
+          this.type = "user";
         });
       }
       if (this.hospitalDetails) {
@@ -653,6 +642,7 @@ export class UserCredentialsService {
           this.userId = element.id;
           this.businessCustomOrganizationName = element.customOrganizationName;
           this.hospitalName = element.name;
+          this.type = "hospital";
         });
       }
     }

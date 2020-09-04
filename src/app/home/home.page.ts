@@ -101,8 +101,8 @@ export class HomePage implements OnInit {
   async waitingMessage() {
     const toast = await this.toastController.create({
       message: 'Please wait for 2 seconds :)',
-      position: "middle",
       duration: 2000,
+      position: "middle",
       color: "primary"
     });
     toast.present();

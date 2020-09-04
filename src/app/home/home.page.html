@@ -12,8 +12,8 @@
         &nbsp; Signup/Signin
       </ion-button>
     </ion-buttons>
-    <ion-buttons *ngIf="userCredentials.UID" slot="end">
-      <ion-text *ngIf="userCredentials.userName" style="word-break: break-all; padding-right: 15px;">
+    <ion-buttons *ngIf="userCredentials.UID && userCredentials.userName" slot="end">
+      <ion-text style="word-break: break-all; padding-right: 15px;">
         Welcome {{userCredentials.userName}} :)
       </ion-text>
     </ion-buttons>
@@ -35,6 +35,7 @@
             <ion-label color="success">Name :</ion-label> &nbsp;
             <ion-text>{{hospital.name}}</ion-text><br><br>
             <ion-label color="success">Address :</ion-label> &nbsp;<ion-text>{{hospital.address}}</ion-text><br><br>
+            <ion-label color="success">Insurance supported:</ion-label> &nbsp;<ion-text>{{hospital.insuranceSupport}}</ion-text><br><br>
             <ion-label color="success" *ngIf="hospital.specialize != ''">Specialize :</ion-label>&nbsp;<ion-text>
               {{hospital.specialize}}</ion-text><br><br>
           </ion-col>

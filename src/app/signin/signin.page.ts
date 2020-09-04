@@ -61,8 +61,19 @@ export class SigninPage implements OnInit {
             let userLogginDetails = firebase.auth().currentUser;
             this.userCredentials.UID = userLogginDetails.uid;
             this.userCredentials.userName = userLogginDetails.displayName;
-            this.userCredentials.getLogginUserDetails();
-            this.router.navigate(['/home']);
+            let filterCondition: any;
+            let index: string;
+            let reference: any;
+            reference = firebase.database().ref('/accounts').on("value",(snapshot)=>{
+              for(index in snapshot.val()){
+                if(snapshot.val().hasOwnProperty(index)){
+                  filterCondition = {...snapshot.val()[index], id: index};
+                  this.userCredentials.allUserAccountDetails.push(filterCondition);                  
+                  this.userCredentials.getLogginUserDetails();
+                  this.router.navigate(['/home']);
+                }
+              }
+            })
           })
         .catch(error => {
           console.log(error);

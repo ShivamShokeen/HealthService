@@ -25,6 +25,7 @@ export class AppointmentPage implements OnInit {
     dateAndTime: "",
     phoneNumber: "",
     alternativeNumber: "",
+    patientInsurance: "",
     disease: "",
     doctorNumber: this.route.snapshot.queryParamMap.get('doctorPhone'),
     hospitalNumber: 0,
@@ -38,14 +39,15 @@ export class AppointmentPage implements OnInit {
     ancestorDisease: "",
     anyRecentTreatment: "",
     doctorImage: this.route.snapshot.queryParamMap.get('image'),
-    securityDeposit: 0
+    securityDeposit: 0,
+    appointmentBookedBy: this.userCredentials.type 
   }
   constructor(private route: ActivatedRoute, private router: Router,
     private http: HttpClient, public modalController: ModalController, public toastController: ToastController, public userCredentials: UserCredentialsService, public hospitalService: HospitalDetailsService,) {
-    if (!this.userCredentials.userId) {
-      this.router.navigate(['/home']);
-    }
-    else {
+    // if (!this.userCredentials.userId) {
+    //   this.router.navigate(['/home']);
+    // }
+    // else {
       this.urlParameter = this.route.snapshot.params['for'];
       this.hospitalDetails = this.hospitalService.hospitalDetails.find((value) => value.id == this.route.snapshot.queryParamMap.get('hospitalId'));
       if (this.hospitalDetails) {
@@ -61,7 +63,7 @@ export class AppointmentPage implements OnInit {
       if (this.securityDeposit != 0) {
         this.addAppointment.securityDeposit = this.securityDeposit;
       }
-    }
+    // }
   }
 
   ngOnInit() {

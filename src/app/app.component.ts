@@ -47,6 +47,10 @@ export class AppComponent {
     });
   }
 
+  // deleteHospital(){
+  //   console.log(this.userCredential.hospitalUID)
+  //   console.log(this.userCredential.UID)
+  // }
   async logoutMessage() {
     const toast = await this.toastController.create({
       message: 'You are successfully signout.',

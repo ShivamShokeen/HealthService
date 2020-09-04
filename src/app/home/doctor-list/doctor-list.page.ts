@@ -21,30 +21,34 @@ export class DoctorListPage implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, public hospitalService: HospitalDetailsService, public toastController: ToastController, public userCredentials: UserCredentialsService) { }
 
   ngOnInit() {
-    this.urlParameter = this.route.snapshot.params['id'];
-    this.hospitalName = this.route.snapshot.params['name'];
-    let filterCondition: any;
-    let referance;
-    let duplicateData = [];
-    let removeDup: any;
-    referance = firebase.database().ref('/doctors').on("value", (snapshot) => {
-      for (const key in snapshot.val()) {
-        if (snapshot.val().hasOwnProperty(key)) {
-          filterCondition = { ...snapshot.val()[key], id: key };
-          duplicateData.push(filterCondition);
-          removeDup = duplicateData.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
-          this.hospitalService.doctorDetails = removeDup;
-          this.setFilteredItems();
+    if (!this.userCredentials.UID) {
+      this.router.navigate(['/home']);
+      this.notLoginMessage();
+    }
+    else {
+      this.urlParameter = this.route.snapshot.params['id'];
+      this.hospitalName = this.route.snapshot.params['name'];
+      let filterCondition: any;
+      let referance;
+      let duplicateData = [];
+      let removeDup: any;
+      referance = firebase.database().ref('/doctors').on("value", (snapshot) => {
+        for (const key in snapshot.val()) {
+          if (snapshot.val().hasOwnProperty(key)) {
+            filterCondition = { ...snapshot.val()[key], id: key };
+            duplicateData.push(filterCondition);
+            removeDup = duplicateData.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+            this.hospitalService.doctorDetails = removeDup;
+            this.setFilteredItems();
+          }
         }
-      }
-    });
-
+      });
+    }
   }
 
   setFilteredItems() {
     this.doctorDetails = this.hospitalService.doctorSearch(this.searchTerm, this.urlParameter);
     this.emptyData = this.doctorDetails;
-    console.log(this.emptyData)
     // if (this.emptyData.length == 0) {
     //   this.noDoctorMessage;
     //   this.router.navigate(['/home']);
