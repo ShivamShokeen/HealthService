@@ -16,6 +16,9 @@
       <ion-text style="word-break: break-all; padding-right: 15px;">
         Welcome {{userCredentials.userName}} :)
       </ion-text>
+      <ion-icon (click)="refresh()" name="refresh-outline"
+        style="cursor: pointer;font-size: xx-large;padding-right: 15px;">
+      </ion-icon>
     </ion-buttons>
   </ion-toolbar>
   <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filteringSearch($event)" showCancelButton="focus"

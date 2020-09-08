@@ -19,7 +19,9 @@ export class AppointmentPage implements OnInit {
   addAppointment = {
     userId: this.userCredentials.userId,
     doctorId: this.route.snapshot.queryParamMap.get('doctorId'),
+    doctorName: this.route.snapshot.queryParamMap.get('doctorName'),
     hospitalId: this.route.snapshot.queryParamMap.get('hospitalId'),
+    hospitalName: this.route.snapshot.queryParamMap.get('hospitalName'),
     name: "",
     aadhaarCard: "",
     dateAndTime: "",
@@ -40,7 +42,7 @@ export class AppointmentPage implements OnInit {
     anyRecentTreatment: "",
     doctorImage: this.route.snapshot.queryParamMap.get('image'),
     securityDeposit: 0,
-    appointmentBookedBy: this.userCredentials.type 
+    appointmentBookedBy: this.userCredentials.type
   }
   constructor(private route: ActivatedRoute, private router: Router,
     private http: HttpClient, public modalController: ModalController, public toastController: ToastController, public userCredentials: UserCredentialsService, public hospitalService: HospitalDetailsService,) {
@@ -48,21 +50,21 @@ export class AppointmentPage implements OnInit {
     //   this.router.navigate(['/home']);
     // }
     // else {
-      this.urlParameter = this.route.snapshot.params['for'];
-      this.hospitalDetails = this.hospitalService.hospitalDetails.find((value) => value.id == this.route.snapshot.queryParamMap.get('hospitalId'));
-      if (this.hospitalDetails) {
-        this.addAppointment.hospitalNumber = this.hospitalDetails.phone;
-        this.addAppointment.location = this.hospitalDetails.address;
-        this.addAppointment.insuranceSupport = this.hospitalDetails.insuranceSupport;
-        this.addAppointment.hospitalSpecialize = this.hospitalDetails.specialize;
-        this.addAppointment.hospitalEmailid = this.hospitalDetails.emailid;
-      }
-      let fees: any;
-      fees = this.route.snapshot.queryParamMap.get('doctorFees');
-      this.securityDeposit = fees / 2;
-      if (this.securityDeposit != 0) {
-        this.addAppointment.securityDeposit = this.securityDeposit;
-      }
+    this.urlParameter = this.route.snapshot.params['for'];
+    this.hospitalDetails = this.hospitalService.hospitalDetails.find((value) => value.id == this.route.snapshot.queryParamMap.get('hospitalId'));
+    if (this.hospitalDetails) {
+      this.addAppointment.hospitalNumber = this.hospitalDetails.phone;
+      this.addAppointment.location = this.hospitalDetails.address;
+      this.addAppointment.insuranceSupport = this.hospitalDetails.insuranceSupport;
+      this.addAppointment.hospitalSpecialize = this.hospitalDetails.specialize;
+      this.addAppointment.hospitalEmailid = this.hospitalDetails.emailid;
+    }
+    let fees: any;
+    fees = this.route.snapshot.queryParamMap.get('doctorFees');
+    this.securityDeposit = fees / 2;
+    if (this.securityDeposit != 0) {
+      this.addAppointment.securityDeposit = this.securityDeposit;
+    }
     // }
   }
 

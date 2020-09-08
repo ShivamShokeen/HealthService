@@ -55,13 +55,13 @@ export class DoctorListPage implements OnInit {
     // }
   }
 
-  bookAppointment(doctorId, hospitalId, image, phone, fees) {
+  bookAppointment(doctorId, hospitalId, image, phone, fees, name, hospitalName) {
     if (!this.userCredentials.UID) {
       this.router.navigate(['/signin/signin']);
       this.notLoginMessage();
     }
     else {
-      this.router.navigate(['/appointment/add'], { queryParams: { doctorId: doctorId, hospitalId: hospitalId, image: image, doctorPhone: phone, doctorFees: fees } });
+      this.router.navigate(['/appointment/add'], { queryParams: { doctorId: doctorId, hospitalId: hospitalId, image: image, doctorPhone: phone, doctorFees: fees, doctorName: name, hospitalName: hospitalName } });
     }
   }
 

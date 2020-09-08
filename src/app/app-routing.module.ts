@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'update-doctor',
     loadChildren: () => import('./update-doctor/update-doctor.module').then( m => m.UpdateDoctorPageModule)
   },
+  {
+    path: 'appointment-schedule',
+    loadChildren: () => import('./appointment-schedule/appointment-schedule.module').then( m => m.AppointmentSchedulePageModule)
+  },
 
 
 ];

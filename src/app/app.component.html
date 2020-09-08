@@ -22,6 +22,10 @@
             <ion-icon color="success" name="calendar-outline"></ion-icon> &nbsp;&nbsp;
             <ion-label>Booked Appointment</ion-label>
           </ion-item>
+          <ion-item *ngIf="userCredential.hospitalUID" [routerLink]="['/appointment-schedule']">
+            <ion-icon color="success" name="calendar-outline"></ion-icon> &nbsp;&nbsp;
+            <ion-label>Appointment Schedule</ion-label>
+          </ion-item>
           <ion-item *ngIf="userCredential.hospitalUID" [routerLink]="['/add-doctor','add']">
             <ion-icon color="success" name="add-outline"></ion-icon> &nbsp;&nbsp;
             <ion-label>Add doctor</ion-label>

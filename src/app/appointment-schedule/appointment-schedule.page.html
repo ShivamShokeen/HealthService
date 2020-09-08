@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Appointment schedule</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngFor="let bookedAppointments of listedAppointments">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size=4>
+              <img src="{{bookedAppointments.doctorImage}}" height=" fit-content">
+            </ion-col>
+            <ion-col size="8">
+              <ion-text color="success">Patient name:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.name}}</ion-text> <br /><br />
+              <ion-text color="success">Appointment date and time:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.dateAndTime | date : 'MMM d, y, h:mm' }}</ion-text><br /><br />
+              <ion-text color="success">Disease:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.disease}}</ion-text> <br /><br />
+              <ion-text color="success">Ancestor disease:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.ancestorDisease}}</ion-text> <br /><br />
+              <ion-text color="success">Any recent treatment:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.anyRecentTreatment}}</ion-text> <br /><br />
+              <ion-text color="success">Insurance support:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.insuranceSupport}}</ion-text> <br /><br />
+              <ion-text color="success">Patient insurance:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.patientInsurance}}</ion-text>
+              <br /><br />
+              <ion-text color="success">How many days:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.howManyDays}}</ion-text> <br /><br />
+              <ion-text color="success">Alternative number:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.alternativeNumber}}</ion-text> <br /><br />
+              <ion-text color="success">Symptoms:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.symptoms}}</ion-text> <br /><br />
+              <ion-text color="success">Age:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.age}}</ion-text> <br /><br />
+              <ion-text color="success">Phone number:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.phoneNumber}}</ion-text> <br /><br />
+              <ion-text color="success">Alternative number:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.alternativeNumber}}</ion-text> <br /><br />
+              <ion-text color="success">Security deposit:</ion-text>&nbsp;&nbsp;
+              <ion-text>{{bookedAppointments.securityDeposit}}</ion-text>
+              <br /><br />
+              <ion-button expand="block" fill="outline" color="danger"
+                (click)="deleteAppointment(bookedAppointments.id)">Delete appointment</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

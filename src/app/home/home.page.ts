@@ -52,9 +52,16 @@ export class HomePage implements OnInit {
   constructor(public hospitalService: HospitalDetailsService, public userCredentials: UserCredentialsService, private http: HttpClient, private toastController: ToastController,) {
 
     this.appointmentToDate = 1;
-    if(this.hospitalService.hospitalDetails == undefined){
+    if (this.hospitalService.hospitalDetails == undefined) {
       this.waitingMessage();
-    }    
+    }
+    this.refresh();
+  }
+  ngOnInit() {
+
+  }
+
+  refresh() {
     let filterCondition: any;
     let referance;
     let duplicateData = [];
@@ -72,9 +79,6 @@ export class HomePage implements OnInit {
         }
       }
     });
-  }
-  ngOnInit() {
-
   }
 
 
@@ -107,5 +111,5 @@ export class HomePage implements OnInit {
     });
     toast.present();
   }
-  
+
 }
