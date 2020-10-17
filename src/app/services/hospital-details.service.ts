@@ -51,6 +51,7 @@ export class HospitalDetailsService {
 
   doctorSearch(searchTerm: string,id) {
     let doctorDetail = this.doctorDetails.filter((value)=>value.hospitalId == id);
+    console.log(this.doctorDetails);
     if (this.doctorDetails.length > 0) {
       if (searchTerm == "") {
         return doctorDetail;

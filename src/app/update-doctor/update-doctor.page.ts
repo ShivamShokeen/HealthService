@@ -26,6 +26,8 @@ export class UpdateDoctorPage implements OnInit {
     else {
       this.hospitalId = this.route.snapshot.queryParams['hospitalId'];
       this.doctorId = this.route.snapshot.queryParams['doctorId'];
+      console.log(this.hospitalId);
+      console.log(this.doctorId);
       this.doctorDetails = this.hospitalDetails.doctorDetails.find((value) => value.hospitalId == this.hospitalId && value.id == this.doctorId)
     }
   }
@@ -87,6 +89,10 @@ export class UpdateDoctorPage implements OnInit {
       this.http.put(specificUrl,customizedObject).subscribe(data =>{
         this.successMessage();
         this.router.navigate(['/home']);
+      },error=>{
+        if(error.status == 401){
+          this.errorMessage();
+        }
       })
     }
     else{
@@ -107,6 +113,16 @@ export class UpdateDoctorPage implements OnInit {
       message: 'Field are empty.',
       duration: 5000,
       position: "middle",
+      color: "danger"
+    });
+    toast.present();
+  }
+
+  async errorMessage() {
+    const toast = await this.toastController.create({
+      message: "You need to create your own firebase account and you can take help of 'Step video' that is available on my app 'BuildX Projects'.",
+      duration: 4000,
+      position: "bottom",
       color: "danger"
     });
     toast.present();

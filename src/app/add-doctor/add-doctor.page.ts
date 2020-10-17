@@ -58,7 +58,7 @@ export class AddDoctorPage implements OnInit {
           filterCondition = { ...snapshot.val()[key], id: key };
           duplicateData.push(filterCondition);
           removeDup = duplicateData.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
-
+          this.hospitalDetails.doctorDetails = removeDup;
           this.editDoctorDetails = removeDup.filter((value) => value.hospitalId == this.userCredentials.hospitalId)
         }
       }
@@ -99,8 +99,12 @@ export class AddDoctorPage implements OnInit {
                 this.http.post('https://healthservice-97887.firebaseio.com/doctors.json', this.doctorDetails).subscribe(data => {
                   this.addedSuccessfully();
                 })
+              },error =>{
+                if(error.status == 401){
+                  this.errorMessage();
+                }
               });
-              this.router.navigate(['/home']);
+              // this.router.navigate(['/home']);
             }
           }
         )
@@ -143,12 +147,14 @@ export class AddDoctorPage implements OnInit {
   }
 
   deleteDoctor(id) {
-    let specificUrl: string;
-    specificUrl = 'https://healthservice-97887.firebaseio.com/doctors/' + id + '.json';
-    this.http.delete(specificUrl).subscribe(data => { });
-    this.deletedSuccessfully();
-    this.router.navigate(['/home']);
+    this.errorMessage();
+    // let specificUrl: string;
+    // specificUrl = 'https://healthservice-97887.firebaseio.com/doctors/' + id + '.json';
+    // this.http.delete(specificUrl).subscribe(data => { });
+    // this.deletedSuccessfully();
+    // this.router.navigate(['/home']);
   }
+  
 
 
   async signupErrorMessage(message) {
@@ -200,5 +206,16 @@ export class AddDoctorPage implements OnInit {
     });
     toast.present();
   }
+
+  async errorMessage() {
+    const toast = await this.toastController.create({
+      message: "You need to create your own firebase account and you can take help of 'Step video' that is available on my app 'BuildX Projects'.",
+      duration: 4000,
+      position: "bottom",
+      color: "danger"
+    });
+    toast.present();
+  }
+
 
 }

@@ -1,5 +1,7 @@
 {
   "name": "health_service",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
