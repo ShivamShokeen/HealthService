@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="editDoctor">
+  <form #editDoc="ngForm" [formGroup]="editDoctor">
 
     <ion-list>
       <ion-item>
@@ -93,6 +93,6 @@
 </ion-content>
 
 <ion-footer>
-  <ion-button expand="block" fill="outline" (click)="updateData(editDoctor)">Change</ion-button>
+  <ion-button expand="block" fill="outline" type="submit" (click)="updateData(editDoc)">Change</ion-button>
   <ion-button expand="block" fill="outline" type="reset">Reset</ion-button>
 </ion-footer>

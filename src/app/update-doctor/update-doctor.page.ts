@@ -56,7 +56,7 @@ export class UpdateDoctorPage implements OnInit {
     })
   }
 
-  updateData(form: NgForm) {
+  updateData(form) {
     let specificUrl: string;
     let customizedObject: any;
     specificUrl = 'https://healthservice-97887.firebaseio.com/doctors/' + this.doctorId + '.json';
